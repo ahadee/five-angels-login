@@ -1,0 +1,24 @@
+{
+  "name": "Bagus",
+  "version": "1.0.0",
+  "description": "Apps only for login",
+  "main": "index.js",
+  "author": "bagusmahardhika",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.2.1",
+    "mongoose": "^5.9.22"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "start": "node app js",
+    "dev": "nodemon app.js"
+  }
+}
