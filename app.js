@@ -6,7 +6,7 @@ const expressJWT = require("express-jwt")
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(
-    expressJWT({secret: SECRET_KEY}). unless({
+    expressJWT({secret: SECRET_KEY, algorithms: ['RS256']}). unless({
         path: [
             {
                 url: '/',
@@ -23,7 +23,6 @@ app.use(
         ]
     })
 )
-
 app.use((err,req,res,next) => {
     // console.log(err);
     
