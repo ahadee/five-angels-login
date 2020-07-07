@@ -34,7 +34,7 @@ app.use((err,req,res,next) => {
 })
 
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     res.status(200).json({ message: "Hello to Login Backend" })
 })
 
