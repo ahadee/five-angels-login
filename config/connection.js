@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { DATABASE_LOCAL, DATABASE_LIVE } = require("./environment")
 
 mongoose
-    .connect(DATABASE_LOCAL, {
+    .connect(DATABASE_LIVE, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,

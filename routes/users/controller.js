@@ -2,7 +2,7 @@ const { User } = require("../../models")
 const bcrypt = require('bcryptjs')
 const jwt = require("jsonwebtoken")
 const { SECRET_KEY, } = require("../../config")
- 
+
 
 module.exports = {
     getAll: async (req, res) => {
@@ -14,25 +14,32 @@ module.exports = {
 
         }
     },
-    
+
     login: async (req, res) => {
-        const { email, password } = req.body
+        try {
+            const { email, password } = req.body
 
-        const result = await User.findOne({ email: email })
-        const {_id } = result
+            const result = await User.findOne({ email: email })
+            const { _id } = result
 
-        bcrypt.compare(password, result.password).then((response) => {
-            if (response === true) {
-                const token = jwt.sign({_id}, SECRET_KEY, {
-                    expiresIn: "1h"
-                })
+            bcrypt.compare(password, result.password).then((response) => {
+                if (response === true) {
+                    const token = jwt.sign({ _id }, SECRET_KEY, {
+                        expiresIn: "30s"
+                    })
+                    // console.log(token);
 
-                res.status(200).send({token: token})
-            } else {
-                res.status(401).send({
-                    message: "your are not allowed to enter this api",
-                })
-            }
-        })
+
+                    res.status(200).send({ token: token })
+                } else {
+                    res.status(401).send({
+                        message: "your are not allowed to enter this api",
+                    })
+                }
+            })
+        } catch (error) {
+            console.log(error);
+            
+        }
     },
 }

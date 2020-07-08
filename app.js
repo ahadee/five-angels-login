@@ -6,7 +6,7 @@ const expressJWT = require("express-jwt")
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(
-    expressJWT({secret: SECRET_KEY, algorithms: ['RS256']}). unless({
+    expressJWT({secret: SECRET_KEY, algorithms: ['HS256']}). unless({
         path: [
             {
                 url: '/',
@@ -24,14 +24,14 @@ app.use(
     })
 )
 app.use((err,req,res,next) => {
-    // console.log(err);
+    console.log(err);
     
-    if (err.code === "UnauthorizedError") {
-        return res.status(401).json({message: "You're not a member"})
-    }
-    else if (err.code === "invalid_token") {
+    if (err.code === "invalid_token") {
         return res.status(401).json({message: "Your token is expired"})
-    } 
+    }
+    else if (err.code === "credentials_required") {
+        return res.status(401).json({message: "Your do not have authorization, You need to login first!"})
+    }  
     else {
         return next()
     }
